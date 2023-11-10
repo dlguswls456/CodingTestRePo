@@ -45,7 +45,7 @@ public class SWEA1247 {
 	}
 
 	private static void dfs(int N, int idx, int totalDistance, int cnt) {
-		if (totalDistance > minDistance)
+		if (totalDistance >= minDistance)
 			return;
 		
 		if (cnt == N) {
