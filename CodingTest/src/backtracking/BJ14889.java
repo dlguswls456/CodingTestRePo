@@ -40,6 +40,7 @@ public class BJ14889 {
 			return;
 		}
 
+		//시작 인덱스를 설정해주면 중복 계산으로 인한 시간 초과를 막을 수 있다!
 		for (int i = idx; i <= N; i++) {
 			if (isVisitedPerson[i] == false) {
 				isVisitedPerson[i] = true;
