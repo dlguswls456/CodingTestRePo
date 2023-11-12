@@ -1,4 +1,4 @@
-package problems;
+package backtracking;
 
 import java.io.BufferedReader;
 import java.io.IOException;
