@@ -1,4 +1,4 @@
-package dfs_bfs;
+package datastructure;
 
 import java.util.ArrayList;
 
