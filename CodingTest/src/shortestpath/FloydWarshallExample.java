@@ -49,7 +49,6 @@ public class FloydWarshallExample {
 					// jk쌍 이루기
 					if (shortestPath[j][i] == Integer.MAX_VALUE || shortestPath[i][k] == Integer.MAX_VALUE) {
 						shortestPath[j][k] = Math.min(shortestPath[j][k], Integer.MAX_VALUE);
-
 					} else {
 						shortestPath[j][k] = Math.min(shortestPath[j][k], shortestPath[j][i] + shortestPath[i][k]);
 					}
