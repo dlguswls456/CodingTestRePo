@@ -14,6 +14,7 @@ public class BJ17086 {
 	static boolean[][] isVisited;
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
+		// 입력
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		N = Integer.parseInt(st.nextToken());
@@ -30,13 +31,16 @@ public class BJ17086 {
 		int maxResult = Integer.MIN_VALUE;
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < M; j++) {
+				// 모든 상어에서 bfs 수행 -> distance 배열에 상어와의 최소 거리 저장
 				if (sharks[i][j] == 1) {
+					// 방문 배열 초기화
 					isVisited = new boolean[N][M];
 					findMinDistance(i, j);
 				}
 			}
 		}
 
+		// 상어와의 최소 거리가 가장 큰 값 찾기
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < M; j++) {
 				maxResult = Math.max(maxResult, distance[i][j]);
@@ -51,6 +55,7 @@ public class BJ17086 {
 		int[] dx = { -1, -1, -1, 0, 0, 1, 1, 1 };
 		int[] dy = { -1, 0, 1, -1, 1, -1, 0, 1 };
 		Queue<Integer> queue = new LinkedList<Integer>();
+		// 좌표, 상어와의 거리 전부 큐에 넣기
 		queue.add(x);
 		queue.add(y);
 		queue.add(0);
@@ -65,8 +70,10 @@ public class BJ17086 {
 				int newY = currentY + dy[i];
 				if (isValid(newX, newY) && !isVisited[newX][newY]) {
 					if (sharks[newX][newY] == 0) {
+						// 만약 처음 가는 구역이라면 move + 1
 						if (distance[newX][newY] == 0) {
 							distance[newX][newY] = move + 1;
+							// 이미 거리를 구한 적이 있다면 최소 값으로 갱신
 						} else {
 							distance[newX][newY] = Math.min(move + 1, distance[newX][newY]);
 						}
