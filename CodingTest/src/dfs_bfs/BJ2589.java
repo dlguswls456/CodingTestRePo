@@ -14,6 +14,7 @@ public class BJ2589 {
 	static boolean[][] isVisited;
 
 	public static void main(String[] args) throws IOException {
+		// 입력
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		N = Integer.parseInt(st.nextToken());
@@ -33,8 +34,11 @@ public class BJ2589 {
 		int maxResult = 0;
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < M; j++) {
+				// 모든 육지마다 bfs 수행 후 최대 시간 반환
 				if (landOrSea[i][j] == 1) {
+					// 할 때마다 방문배열 초기화
 					isVisited = new boolean[N][M];
+					// 각 최대 시간 중 최대 값 찾기
 					maxResult = Math.max(bfs(i, j), maxResult);
 				}
 			}
@@ -50,15 +54,18 @@ public class BJ2589 {
 		int[] dx = { -1, 1, 0, 0 };
 		int[] dy = { 0, 0, -1, 1 };
 		Queue<Integer> queue = new LinkedList<Integer>();
+		// 좌표, 걸리는 시간 큐에 같이 담아버림
 		queue.add(x);
 		queue.add(y);
 		queue.add(hour);
+		// 방문처리
 		isVisited[x][y] = true;
 
 		while (!queue.isEmpty()) {
 			int currentX = queue.poll();
 			int currentY = queue.poll();
 			hour = queue.poll();
+			// 최대 시간 갱신
 			maxHour = Math.max(maxHour, hour);
 			for (int i = 0; i < 4; i++) {
 				int newX = currentX + dx[i];
@@ -66,6 +73,7 @@ public class BJ2589 {
 				if (isValid(newX, newY) && !isVisited[newX][newY] && landOrSea[newX][newY] == 1) {
 					queue.add(newX);
 					queue.add(newY);
+					// 한시간씩 더해서 저장
 					queue.add(hour + 1);
 					isVisited[newX][newY] = true;
 				}
