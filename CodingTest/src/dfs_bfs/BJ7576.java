@@ -9,71 +9,72 @@ import java.util.StringTokenizer;
 
 public class BJ7576 {
 
-	static int[][] tomato, days;
-	static boolean[][] isVisited;
+	static int[][] tomato;
 	static int N, M;
+	static Queue<Integer> queue = new LinkedList<Integer>();
 
 	public static void main(String[] args) throws IOException {
+		// 입력
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		M = Integer.parseInt(st.nextToken());
 		N = Integer.parseInt(st.nextToken());
 		tomato = new int[N][M];
-		days = new int[N][M];
 
+		// 모두 익은 토마토인지 확인하는 변수
 		boolean isAllWellDone = true;
 		for (int i = 0; i < N; i++) {
 			st = new StringTokenizer(br.readLine());
 			for (int j = 0; j < M; j++) {
 				tomato[i][j] = Integer.parseInt(st.nextToken());
-				if (tomato[i][j] != 1) {
-					days[i][j] = Integer.MAX_VALUE;
+				// 익은 토마토면 큐에 저장
+				if (tomato[i][j] == 1) {
+					queue.add(i);
+					queue.add(j);
 				}
 
+				// 안익은 토마도 하나라도 있을 때
 				if (tomato[i][j] == 0) {
 					isAllWellDone = false;
 				}
 			}
 		}
 
+		// 모두 익은 토마토면 bfs 돌릴 필요 없다
 		if (isAllWellDone) {
 			System.out.println(0);
 			return;
 		}
 
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < M; j++) {
-				if (tomato[i][j] == 1) {
-					isVisited = new boolean[N][M];
-					cntDays(i, j);
-				}
-			}
-		}
+		// 최대 며칠 걸리는지 bfs로 확인
+		cntDays();
 
 		int maxResult = Integer.MIN_VALUE;
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < M; j++) {
-				if(tomato[i][j] == -1) {
+				// 안익은 토마토 있을 시
+				if (tomato[i][j] == 0) {
+					maxResult = -1;
+					System.out.println(maxResult);
+					return;
+				}
+				// 토마토 없는 경우 pass
+				if (tomato[i][j] == -1) {
 					continue;
 				}
-				maxResult = Math.max(maxResult, days[i][j]);
+
+				// 최대값 찾기
+				maxResult = Math.max(maxResult, tomato[i][j]);
 			}
 		}
-
-		if (maxResult == Integer.MAX_VALUE) {
-			maxResult = -1;
-		}
-		System.out.println(maxResult);
+		// 토마토가 1이어서 값이 항상 +1 되어있음 -> 다시 1 빼주기..
+		System.out.println(maxResult - 1);
 
 	}
 
-	public static void cntDays(int x, int y) {
+	public static void cntDays() {
 		int[] dx = { -1, 1, 0, 0 };
 		int[] dy = { 0, 0, -1, 1 };
-		Queue<Integer> queue = new LinkedList<Integer>();
-		isVisited[x][y] = true;
-		queue.add(x);
-		queue.add(y);
 
 		while (!queue.isEmpty()) {
 			int currentX = queue.poll();
@@ -81,12 +82,12 @@ public class BJ7576 {
 			for (int i = 0; i < 4; i++) {
 				int newX = currentX + dx[i];
 				int newY = currentY + dy[i];
-				if (isValid(newX, newY) && !isVisited[newX][newY] && tomato[newX][newY] == 0) {
-					isVisited[newX][newY] = true;
+				if (isValid(newX, newY) && tomato[newX][newY] == 0) {
 					queue.add(newX);
 					queue.add(newY);
 
-					days[newX][newY] = Math.min(days[currentX][currentY] + 1, days[newX][newY]);
+					// 현재 토마토 + 1일 저장
+					tomato[newX][newY] = tomato[currentX][currentY] + 1;
 				}
 			}
 		}
