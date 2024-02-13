@@ -15,6 +15,7 @@ public class BJ1012_tryagain {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		T = Integer.parseInt(br.readLine());
 
+		// 입력
 		for (int t = 0; t < T; t++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			M = Integer.parseInt(st.nextToken());
@@ -34,9 +35,10 @@ public class BJ1012_tryagain {
 			int cnt = 0;
 			for (int i = 0; i < N; i++) {
 				for (int j = 0; j < M; j++) {
+					// 방문하지 않은 배추들마다 dfs 실행
 					if (!isVisited[i][j] && cabbages[i][j] == 1) {
 						cntBugs(i, j);
-						cnt++;
+						cnt++; // 배추 무리 카운트
 					}
 				}
 			}
@@ -46,11 +48,14 @@ public class BJ1012_tryagain {
 		}
 	}
 
+	// dfs
 	public static void cntBugs(int x, int y) {
 		int[] dx = { 1, -1, 0, 0 };
 		int[] dy = { 0, 0, 1, -1 };
 
+		// 방문 처리
 		isVisited[x][y] = true;
+		// 인접 배추 확인
 		for (int i = 0; i < 4; i++) {
 			int newX = x + dx[i];
 			int newY = y + dy[i];
