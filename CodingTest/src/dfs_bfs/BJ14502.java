@@ -13,8 +13,9 @@ public class BJ14502 {
 	static int N, M, maxResult = Integer.MIN_VALUE;
 	static int[][] lab;
 	static boolean[][] isVisited;
-	static ArrayList<Node> walls = new ArrayList<Node>();
+	static ArrayList<Node> walls = new ArrayList<Node>(); // 임시 벽 저장
 
+	// 노드 클래스
 	static class Node {
 		int x;
 		int y;
@@ -26,6 +27,7 @@ public class BJ14502 {
 	}
 
 	public static void main(String[] args) throws IOException {
+		// 입력
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		N = Integer.parseInt(st.nextToken());
@@ -39,7 +41,8 @@ public class BJ14502 {
 			}
 		}
 
-		backracking(0, 0, 0);
+		// 벽 3개 뽑기 -> 뽑아서 bfs
+		backtracking(0, 0, 0);
 
 		System.out.println(maxResult);
 
@@ -50,15 +53,19 @@ public class BJ14502 {
 		int[] dy = { 0, 0, -1, 1 };
 		Queue<Node> queue = new LinkedList<Node>();
 
+		// 실험실 배열 복사
 		int[][] cpyLab = new int[N][M];
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < M; j++) {
 				cpyLab[i][j] = lab[i][j];
+				// 바이러스면 큐에 추가
 				if (lab[i][j] == 2) {
 					queue.add(new Node(i, j));
 				}
 			}
 		}
+
+		// 복사된 배열에 벽 설치
 		for (Node wall : walls) {
 			cpyLab[wall.x][wall.y] = 1;
 		}
@@ -68,6 +75,7 @@ public class BJ14502 {
 			for (int i = 0; i < 4; i++) {
 				int newX = currentNode.x + dx[i];
 				int newY = currentNode.y + dy[i];
+				// 바이러스 퍼트리기
 				if (isValid(newX, newY) && cpyLab[newX][newY] == 0) {
 					cpyLab[newX][newY] = 2;
 					queue.add(new Node(newX, newY));
@@ -88,21 +96,25 @@ public class BJ14502 {
 
 	}
 
-	public static void backracking(int x, int y, int cnt) {
+	public static void backtracking(int x, int y, int cnt) {
 		if (cnt == 3) {
+			// bfs 수행 후 안전영역 반환 & 최대 안전영역 구하기
 			maxResult = Math.max(bfs(), maxResult);
 			return;
 		}
 
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < M; j++) {
-				if (i < x && j < y) { // 중복 케이스 막기 위해
+				// 중복 케이스 막기 위해
+				if (i < x && j < y) {
 					continue;
 				}
+				// 벽 세울 수 있는 공간이면
 				if (lab[i][j] == 0 && !isVisited[i][j]) {
 					isVisited[i][j] = true;
 					walls.add(new Node(i, j));
-					backracking(i, j, cnt + 1);
+					backtracking(i, j, cnt + 1);
+					// 되돌리기
 					isVisited[i][j] = false;
 					walls.remove(cnt);
 				}
