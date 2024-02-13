@@ -22,7 +22,7 @@ public class BJ14659 {
 			for (int j = i + 1; j < N; j++) {
 				if (heights[i] > heights[j]) {
 					tempResult++;
-				}else {
+				}else { // 하나라도 같거나 높은거 만나면 잠들어버림
 					break;
 				}
 			}
