@@ -26,6 +26,8 @@ public class BJ9935 {
 			}
 		}
 
+		// 문자열을 합치는 과정에서 메모리 초과가 발생!
+		// 스트링버퍼를 사용하자
 		StringBuffer sb = new StringBuffer();
 		for (char c : stringList) {
 			sb.append(c);
