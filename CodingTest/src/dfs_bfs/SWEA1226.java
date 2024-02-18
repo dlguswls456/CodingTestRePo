@@ -1,4 +1,4 @@
-package ssafy;
+package dfs_bfs;
 
 import java.io.BufferedReader;
 import java.io.IOException;
