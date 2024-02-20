@@ -1,4 +1,4 @@
-package ssafy;
+package datastructure;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,17 +31,8 @@ public class BJ1991 {
 		for (int i = 0; i < N; i++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			nodes[i] = new Node(st.nextToken(), st.nextToken(), st.nextToken());
-//			if(nodes[i].node.equals("A")) {
-//				tree.add("A");
-//			}
 		}
 
-//		tree.add("A");
-//		makeTree("A");
-//		for (String node : tree) {
-//			System.out.print(node + " ");
-//		}
-//		
 		preorder("A");
 		System.out.println(sb);
 		sb.setLength(0);
@@ -64,6 +55,7 @@ public class BJ1991 {
 				if (!curNode.right.equals(".")) {
 					preorder(curNode.right);
 				}
+				break;
 			}
 		}
 	}
@@ -73,12 +65,13 @@ public class BJ1991 {
 			Node curNode = nodes[i];
 			if (curNode.node.equals(node)) {
 				if (!curNode.left.equals(".")) {
-					preorder(curNode.left);
+					inorder(curNode.left);
 				}
 				sb.append(curNode.node);
 				if (!curNode.right.equals(".")) {
-					preorder(curNode.right);
+					inorder(curNode.right);
 				}
+				break;
 			}
 		}
 	}
@@ -88,12 +81,13 @@ public class BJ1991 {
 			Node curNode = nodes[i];
 			if (curNode.node.equals(node)) {
 				if (!curNode.left.equals(".")) {
-					preorder(curNode.left);
+					postorder(curNode.left);
 				}
 				if (!curNode.right.equals(".")) {
-					preorder(curNode.right);
+					postorder(curNode.right);
 				}
 				sb.append(curNode.node);
+				break;
 			}
 		}
 	}
