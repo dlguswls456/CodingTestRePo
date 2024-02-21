@@ -20,7 +20,7 @@ public class BJ1149 {
 				price[i][j] = Integer.parseInt(st.nextToken());
 			}
 		}
-
+ 
 		int[][] dp = new int[N][3];
 		dp[0] = price[0];
 		for (int i = 1; i < N; i++) {
