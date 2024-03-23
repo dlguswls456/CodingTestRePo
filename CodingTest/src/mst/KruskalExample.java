@@ -85,7 +85,7 @@ public class KruskalExample {
 		int parentX = find(x);
 		int parentY = find(y);
 
-		if (parentX == parentY) {
+		if (parentX == parentY) { // 사이클 생성
 			return false;
 		}
 
