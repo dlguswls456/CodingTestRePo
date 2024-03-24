@@ -1,4 +1,4 @@
-package twopointer;
+package twopointer_slidingwindow;
 
 import java.io.BufferedReader;
 import java.io.IOException;
