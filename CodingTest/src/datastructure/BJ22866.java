@@ -77,13 +77,15 @@ public class BJ22866 {
 			toLeft.add(new Building(i, buildings[i]));
 		}
 
+		StringBuilder sb = new StringBuilder();
 		for (int i = 1; i <= N; i++) {
-			System.out.print(resultCnt[i] + " ");
+			sb.append(resultCnt[i] + " ");
 			
 			if(resultCnt[i] !=0) {
-				System.out.print(resultCloseBuilding[i]);
+				sb.append(resultCloseBuilding[i]);
 			}
-			System.out.println();
+			sb.append("\n");
 		}
+		System.out.println(sb);
 	}
 }
