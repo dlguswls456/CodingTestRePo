@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class BJ2609 {
-	// ÃÖ´ë°ø¾à¼ö ÃÖ¼Ò°ø¹è¼ö
+	// ìµœëŒ€ê³µì•½ìˆ˜ ìµœì†Œê³µë°°ìˆ˜
 	public static int num1;
 	public static int num2;
 
@@ -28,7 +28,7 @@ public class BJ2609 {
 		System.out.println(LCM);
 	}
 
-	// ÃÖ´ë°ø¾à¼ö = (a,b) -> (b,a%b) Àç±Í ¹İº¹ ¿©±â¼­ a´Â bº¸´Ù Å©°Å³ª °°´Ù
+	// ìµœëŒ€ê³µì•½ìˆ˜ = (a,b) -> (b,a%b) ì¬ê·€ ë°˜ë³µ ì—¬ê¸°ì„œ aëŠ” bë³´ë‹¤ í¬ê±°ë‚˜ ê°™ë‹¤
 	public static int greatestCommonDivisor(int num1, int num2) {
 		if (num1 % num2 == 0) {
 			return num2;
@@ -36,7 +36,7 @@ public class BJ2609 {
 		return greatestCommonDivisor(num2, num1 % num2);
 	}
 
-	// ÃÖ¼Ò°ø¹è¼ö = µÎ ÀÚ¿¬¼öÀÇ °ö/ÃÖ´ë°ø¾à¼ö
+	// ìµœì†Œê³µë°°ìˆ˜ = ë‘ ìì—°ìˆ˜ì˜ ê³±/ìµœëŒ€ê³µì•½ìˆ˜
 	public static int leastCommonMultiple(int GCD) {
 		return num1 * num2 / GCD;
 	}
