@@ -1,4 +1,4 @@
-package backtracking.엘리스코드_목표량;
+package 엘리스코드;
 
 import java.io.*;
 
