@@ -37,6 +37,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
         int N = Integer.parseInt(br.readLine());
 
         PriorityQueue<Grade> pq = new PriorityQueue<>();
@@ -51,7 +52,9 @@ public class Main {
         }
 
         while (!pq.isEmpty()){
-            System.out.println(pq.poll().name);
+            sb.append(pq.poll().name).append("\n");
         }
+
+        System.out.println(sb);
     }
 }
