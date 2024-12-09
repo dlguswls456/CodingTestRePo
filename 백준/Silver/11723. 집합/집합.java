@@ -1,59 +1,46 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
 
-    static int N = 0;
-    static HashSet<Integer> set = new HashSet<>();
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        N = Integer.parseInt(br.readLine());
+        int N = Integer.parseInt(br.readLine());
 
-        HashSet<Integer> fullSet = new HashSet<>();
-        for (int i = 1; i <= 20; i++) {
-            fullSet.add(i);
-        }
-
+        int numbers = 0;
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < N; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
             String order = st.nextToken();
+
             switch (order) {
                 case "add":
-                    set.add(Integer.parseInt(st.nextToken()));
+                    int adding = Integer.parseInt(st.nextToken());
+                    numbers |= (1 << adding);
                     break;
                 case "remove":
-                    set.remove(Integer.parseInt(st.nextToken()));
+                    int removing = Integer.parseInt(st.nextToken());
+                    numbers &= ~(1 << removing);
                     break;
                 case "check":
-                    if (set.contains(Integer.parseInt(st.nextToken()))) {
-                        sb.append(1).append("\n");
-                    } else {
-                        sb.append(0).append("\n");
-                    }
+                    int checking = Integer.parseInt(st.nextToken());
+                    int result = (numbers & (1 << checking)) != 0 ? 1 : 0;
+                    sb.append(result).append("\n");
                     break;
                 case "toggle":
-                    int num = Integer.parseInt(st.nextToken());
-                    if (set.contains(num)) {
-                        set.remove(num);
-                    } else {
-                        set.add(num);
-                    }
+                    int toggling = Integer.parseInt(st.nextToken());
+                    numbers ^= (1 << toggling);
                     break;
                 case "all":
-                    set.addAll(fullSet);
+                    numbers = (1 << 21) - 1;
                     break;
                 case "empty":
-                    set = new HashSet<>();
+                    numbers = 0;
                     break;
             }
         }
-        System.out.print(sb);
+        System.out.println(sb);
     }
-
 }
