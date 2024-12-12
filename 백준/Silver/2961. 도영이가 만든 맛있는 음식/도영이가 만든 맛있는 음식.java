@@ -23,12 +23,29 @@ public class Main {
             ingredient[i][1] = bitter;
         }
 
-        cook(0, 0, 1, 0);
+//        backtracking(0, 0, 1, 0);
+        bitMasking();
 
         System.out.println(result);
     }
 
-    private static void cook(int turn, int selected, int sour, int bitter) {
+    private static void bitMasking() {
+        int comb = 1 << N;
+
+        for (int i = 1; i < comb; i++) {
+            int sour = 1;
+            int bitter = 0;
+            for (int j = 0; j < N; j++) {
+                if ((i & (1 << j)) > 0) {
+                    sour *= ingredient[j][0];
+                    bitter += ingredient[j][1];
+                }
+            }
+            result = Math.min(Math.abs(sour - bitter), result);
+        }
+    }
+
+    private static void backtracking(int turn, int selected, int sour, int bitter) {
         if (turn == N) {
             if (selected == 0) return;
 
@@ -36,7 +53,7 @@ public class Main {
             return;
         }
 
-        cook(turn + 1, selected + 1, sour * ingredient[turn][0], bitter + ingredient[turn][1]);
-        cook(turn + 1, selected, sour, bitter);
+        backtracking(turn + 1, selected + 1, sour * ingredient[turn][0], bitter + ingredient[turn][1]);
+        backtracking(turn + 1, selected, sour, bitter);
     }
 }
