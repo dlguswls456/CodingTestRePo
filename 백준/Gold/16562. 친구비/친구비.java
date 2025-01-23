@@ -33,13 +33,9 @@ public class Main {
             union(a, b);
         }
 
-        for (int i=1;i<=N;i++) {
-            find(i);
-        }
-
         HashSet<Integer> hs = new HashSet<>();
-        for (int root : roots) {
-            hs.add(root);
+        for (int i=1;i<=N;i++) {
+            hs.add(find(i));
         }
 
         int result = 0;
