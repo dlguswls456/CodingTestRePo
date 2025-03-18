@@ -40,23 +40,14 @@ class Solution {
         }
         
         ArrayList<String> list = new ArrayList<String>();
-        //Path pastPath = null;
         for(Path path: graph.get("ICN")){
             list = new ArrayList<String>();
             list.add("ICN");
             
-            // Path path = graph.get("ICN").poll();
-            // if(pastPath != null){
-            //     graph.get("ICN").add(pastPath);
-            // }
             boolean found = dfs(1, path, list);
             if(found){
                 break;
             }
-            
-            // else{
-            //     pastPath = path;
-            // }
         }
         
         String[] answer = new String[list.size()];
@@ -75,13 +66,7 @@ class Solution {
         
         visited[path.idx] = true;
         
-        // ArrayList<Path> polled = new ArrayList<Path>();
-        
         for(Path nextPath : graph.get(path.end)){
-        // while(!graph.get(path.end).isEmpty()){
-            //Path nextPath = graph.get(path.end).poll();
-            //polled.add(nextPath);
-            
             if(visited[nextPath.idx]){
                 continue;
             }
@@ -95,9 +80,6 @@ class Solution {
             //graph.get(path.end).add(nextPath);
         }
         
-        // for(Path p :polled){
-        //     graph.get(path.end).add(p);
-        // }
         visited[path.idx] = false;
         
         return false;
